@@ -1,0 +1,40 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion '23.0.0 rc3'
+
+    defaultConfig {
+        applicationId "com.wfj.jaydenarchitecture"
+        minSdkVersion 15
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:22.2.0'
+    compile 'com.google.code.gson:gson:2.2.4'
+
+    compile('com.feibo:fbcore:1.1.2') {
+        exclude module: 'support-v4', group: 'com.android.support'
+        exclude module: 'support-annotations', group: 'com.android.support'
+        exclude module: 'gson', group: 'com.google.code.gson'
+    }
+    compile('com.feibo:social-component:1.0.4') {
+        exclude module: 'support-v4', group: 'com.android.support'
+        exclude module: 'support-annotations', group: 'com.android.support'
+        exclude module: 'gson', group: 'com.google.code.gson'
+    }
+
+    compile 'com.squareup.picasso:picasso:2.5.2'
+}
