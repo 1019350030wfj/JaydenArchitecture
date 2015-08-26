@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Main-->
+    <color name="primary">@color/c3_white</color>
+    <color name="primaryDark">@color/black</color>
+    <color name="primaryLight">#7DD4B7</color>
+    <color name="accent">#00796b</color>
+    <color name="accentLight">#009688</color>
+
+    <!--标准-->
+    <color name="c1_dark_black">#191c23</color>
+    <color name="c2_dark_grey">#8C8C8C</color>
+    <color name="c3_white">#FFFFFF</color>
+    <color name="c4_dark_gray">#DDDDDD</color>
+    <color name="c5_gray">#EBEBEB</color>
+    <color name="c6_light_gray">#E2E2E2</color>
+    <color name="c7_light_grey">#939393</color>
+    <color name="c8_orange">@color/orange</color>
+    <color name="c8_yellow">#FFD600</color>
+    <color name="c9_light_gray">#F4F4F4</color>
+
+    <color name="dialog_bg">#a6000000</color>
+
+    <!-- 常用 -->
+    <color name="transparent">#00000000</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFffffff</color>
+    <color name="divide">#FFcccccc</color>
+    <color name="head_tips">#FF000000</color>
+    <color name="grey">#e8e8e8</color>
+    <color name="blue">#8BC3E9</color>
+    <color name="orange">#FFD600</color>
+    <color name="backgroundColor">#E8E8E0</color>
+    <color name="background_black_alpha_20">#33000000</color>
+    <color name="background_black_alpha_40">#66000000</color>
+    <color name="background_black_alpha_70">#B2000000</color>
+
+    <!-- 字体颜色 -->
+    <color name="text_black">#cc000000</color>
+
+    <color name="division_line">#DDDDDD</color>
+
+
+    <color name="trans">#00000000</color>
+    <color name="alert_dialog_line">#c6c6c6</color>
+    <color name="action_sheet_blue">#037BFF</color>
+    <color name="action_sheet_red">#FD4A2E</color>
+    <color name="action_sheet_gray">#8F8F8F</color>
+</resources>
