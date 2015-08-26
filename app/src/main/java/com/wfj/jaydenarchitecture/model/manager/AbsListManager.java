@@ -105,18 +105,50 @@ public abstract class AbsListManager<T> extends BaseManager implements IListMana
                     switchState(STATE_RESET);
                     return;
                 }
+
+                //正确返回数据
+                BaseListData<T> data = response.data;
+                List<T> list = data.items;
+                if (list.size() == 0) {
+                    handleFail(listener, ReturnCode.RS_LOCAL_NO_MORE_DATA);
+                } else {
+                    items.addAll(list);
+                    handleSuccess(listener);
+                }
+                switchState(STATE_RESET);
             }
         });
     }
 
+    /**
+     * 更新指定position的数据
+     * @param position
+     * @param e
+     */
     @Override
-    public void refreshItemLocal(int position, Object o) {
-
+    public void refreshItemLocal(int position, T e) {
+        if (items == null || items.size() == 0) {
+            return;
+        }
+        items.remove(position);
+        if (e != null) {
+            items.add(position, e);
+        }
     }
 
+    /**
+     * 加入新数据到指定position
+     * @param position
+     * @param e
+     */
     @Override
-    public void addItemLocal(int position, Object o) {
-
+    public void addItemLocal(int position, T e) {
+        if (items == null) {
+            return;
+        }
+        if (e != null) {
+            items.add(position, e);
+        }
     }
 
     @Override
