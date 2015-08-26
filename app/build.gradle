@@ -1,8 +1,14 @@
 apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
 
 android {
     compileSdkVersion 22
     buildToolsVersion '23.0.0 rc3'
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
     defaultConfig {
         applicationId "com.wfj.jaydenarchitecture"
@@ -22,7 +28,24 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:22.2.0'
+    compile('com.android.support:design:22.2.0') {
+        exclude module: 'support-annotations', group: 'com.android.support'
+        exclude module: 'support-v4', group: 'com.android.support'
+    }
+    compile('com.android.support:appcompat-v7:22.2.0') {
+        //exclude module: 'support-v4', group: 'com.android.support'
+        exclude module: 'support-annotations', group: 'com.android.support'
+    }
+
+    compile('com.android.support:recyclerview-v7:22.2.0') {
+        exclude module: 'support-annotations', group: 'com.android.support' exclude module: 'support-v4', group: 'com.android.support'
+    }
+    compile 'com.android.support:cardview-v7:22.2.0'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile('com.jenzz:materialpreference:1.3') {
+        exclude module: 'support-annotations', group: 'com.android.support'
+        exclude module: 'support-v4', group: 'com.android.support'
+    }
     compile 'com.google.code.gson:gson:2.2.4'
 
     compile('com.feibo:fbcore:1.1.2') {
@@ -37,4 +60,14 @@ dependencies {
     }
 
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.squareup.okhttp:okhttp-urlconnection:2.0.0'
+    compile 'com.squareup.okhttp:okhttp:2.0.0'
+
+    compile 'com.android.support:support-annotations:22.2.0'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
+    compile 'com.umeng.analytics:analytics:latest.integration'
+}
+
+tasks.withType(JavaCompile){
+    options.encoding="utf-8"
 }
