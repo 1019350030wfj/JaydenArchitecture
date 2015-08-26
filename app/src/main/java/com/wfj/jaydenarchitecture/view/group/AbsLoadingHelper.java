@@ -19,4 +19,9 @@ public class AbsLoadingHelper {
      * 显示加载状态页面的帮助类
      */
     private LoadingHelper loadingHelper;
+
+    /**
+     * group组件的配置信息
+     */
+    private GroupConfig groupConfig;
 }

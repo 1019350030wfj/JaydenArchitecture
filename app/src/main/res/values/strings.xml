@@ -3,4 +3,11 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string name="fail_msg_1004">暂无内容</string>
+    <string name="fail_msg_1015">抱歉，艺术品已被删除</string>
+
+    <string name="not_network">网络不给力，请检查网络是否正常</string>
+    <string name="loading_default_fail_text">@string/not_network</string>
+    <string name="loading_default_fail_text2">点击重新加载或检查网络~</string>
 </resources>
