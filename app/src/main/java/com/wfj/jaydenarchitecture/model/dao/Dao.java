@@ -3,15 +3,24 @@ package com.wfj.jaydenarchitecture.model.dao;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import com.wfj.jaydenarchitecture.R;
+import com.wfj.jaydenarchitecture.app.AppContext;
 import com.wfj.jaydenarchitecture.model.bean.Response;
 import com.wfj.jaydenarchitecture.model.cache.DataProvider;
+import com.wfj.jaydenarchitecture.utils.ToastUtil;
 
+import java.io.UnsupportedEncodingException;
+import java.util.List;
+
+import fbcore.conn.http.HttpParams;
+import fbcore.conn.http.Method;
 import fbcore.log.LogUtil;
 import fbcore.task.AsyncTaskManager;
 import fbcore.task.SyncTask;
 import fbcore.task.TaskFailure;
 import fbcore.task.TaskHandler;
 import fbcore.task.toolbox.GetStringTask;
+import fbcore.task.toolbox.PostTask;
 
 
 /**
@@ -63,8 +72,8 @@ public class Dao {
                     }
                     if (o.code != ReturnCode.RS_EMPTY_ERROR) {
                         //更新缓存
-//                        DataProvider.getInstance().putStringToDisker((String) result,
-//                                UrlFilter.getFileNameFromUrl(paramUrl));
+                        DataProvider.getInstance().putStringToDisker((String) result,
+                                UrlFilter.getFileNameFromUrl(paramUrl));
                     }
                     return;
                 }
@@ -135,19 +144,19 @@ public class Dao {
      * @param paramUrl
      * @param typeToken
      * @param listener
-     * @param cache
+     * @param needCache
      * @param showToast
      * @param <T>
      * @return
      */
-    private static <T> boolean checkNetwork(String paramUrl, TypeToken<Response<T>> typeToken, IEntityListener<T> listener, boolean cache, boolean showToast) {
-//        if (!AppContext.isNetworkAvailable()) {
-//            if(showToast) {
-//                ToastUtil.shortT(AppContext.getContext(), AppContext.getContext().getResources().getString(R.string.not_network));
-//            }
-//            getDataFromCache(true, paramUrl, token, listener, needCache);
-//            return false;
-//        }
+    private static <T> boolean checkNetwork(String paramUrl, TypeToken<Response<T>> typeToken, IEntityListener<T> listener, boolean needCache, boolean showToast) {
+        if (!AppContext.isNetworkAvailable()) {
+            if(showToast) {
+                ToastUtil.shortT(AppContext.getContext(), AppContext.getContext().getResources().getString(R.string.not_network));
+            }
+            getDataFromCache(true, paramUrl, typeToken, listener, needCache);
+            return false;
+        }
         return true;
     }
 
@@ -160,5 +169,81 @@ public class Dao {
 
     private static String createEmptyJson(int rsCode) {
         return new Gson().toJson(new Response<Object>(rsCode));
+    }
+
+
+    public static <T> void putDatas(final String paramUrl, List<HttpParams.NameValue> params, final TypeToken<Response<T>> token,
+                                    final IEntityListener<T> listener) {
+        putDatas(paramUrl, params, token, listener, true);
+    }
+
+    /**
+     * 向指定地址传输数据
+     */
+    public static <T> void putDatas(final String paramUrl, List<HttpParams.NameValue> params, final TypeToken<Response<T>> token,
+                                    final IEntityListener<T> listener, boolean showToast) {
+        if (!checkNetwork(paramUrl, token,listener, false,showToast)) {
+            return;
+        }
+        putAsyncDatas(UrlBuilder.getPublicParamUrl().append(paramUrl).toString(), params, new TaskHandler() {
+
+            @Override
+            public void onSuccess(Object result) {
+
+                if (result != null) {
+                    try {
+                        Response<T> o;
+                        try {
+                            o = new Gson().fromJson((String) result, token.getType());
+                        } catch (Exception e) {
+                            try {
+                                result = new String((byte[]) result, "UTF-8");
+                                LogUtil.d(TAG, "post-result:" + result);
+                            } catch (UnsupportedEncodingException e1) {
+                                e1.printStackTrace();
+                            }
+                            o = new Gson().fromJson((String) result, token.getType());
+                        }
+                        listener.result(o);
+                        returnCode2Toast(o.code);
+                    } catch (JsonSyntaxException e) {
+                        e.printStackTrace();
+                    }
+                    return;
+                }
+
+                String error = createEmptyJson(ReturnCode.RS_POST_ERROR);
+
+                Response<T> o = new Gson().fromJson(error, token.getType());
+                listener.result(o);
+            }
+
+            @Override
+            public void onProgressUpdated(Object... params) {
+
+            }
+
+            @Override
+            public void onFail(TaskFailure failure) {
+                String result = createEmptyJson(ReturnCode.RS_POST_ERROR);
+                Response<T> o = new Gson().fromJson(result, token.getType());
+                listener.result(o);
+                returnCode2Toast(o.code);
+            }
+        });
+    }
+
+    private static void putAsyncDatas(final String paramUrl, final List<HttpParams.NameValue> params, TaskHandler handler) {
+        AsyncTaskManager.INSTANCE.execute(new SyncTask() {
+            @Override
+            protected Object execute() {
+                String url = UrlBuilder.getPublicParamUrl().append(paramUrl).toString();
+                HttpParams.Builder buidler = new HttpParams.Builder(Method.POST, url);
+                for (HttpParams.NameValue nv : params) {
+                    buidler.addNameValue(nv.getName(), nv.getValue());
+                }
+                return new PostTask(buidler.create()).execute();
+            }
+        }, handler);
     }
 }

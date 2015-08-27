@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DRecyclerView">
+        <attr name="spanCount" />
+        <attr name="android:overScrollMode" />
+    </declare-styleable>
+
+    <declare-styleable name="IndicatorView">
+        <attr name="indicatorView_drawable" format="reference" />
+        <attr name="indicatorView_count" format="integer" />
+        <attr name="indicatorView_position" format="integer" />
+        <attr name="indicatorView_space" format="dimension" />
+    </declare-styleable>
+
+</resources>

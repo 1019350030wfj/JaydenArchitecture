@@ -2,6 +2,7 @@ package com.wfj.jaydenarchitecture.model.cache;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.text.TextUtils;
 
 import com.squareup.picasso.LruCache;
 import com.squareup.picasso.OkHttpDownloader;
@@ -17,6 +18,7 @@ import fbcore.cache.MemoryCache;
 import fbcore.cache.image.ImageLoader;
 import fbcore.cache.image.impl.ImageDiskCache;
 import fbcore.cache.image.impl.LruMemoryCache;
+import fbcore.log.LogUtil;
 import fbcore.security.Md5;
 
 /**
@@ -75,13 +77,31 @@ public class DataProvider {
         }
 
         /**
-         * 调用函数 Picasso.setDebug(true) 可以在加载的图片左上角显示一个 三角形 ，不同的颜色代表加载的来源
-         红色：代表从网络下载的图片
-         蓝色：代表从磁盘缓存加载的图片
-         绿色：代表从内存中加载的图片
-         如果项目中使用了OkHttp库的话，默认会使用OkHttp来下载图片。否则使用HttpUrlConnection来下载图片。
+         * 调用函数 Picasso.setDebug(true)
+         * 可以在加载的图片左上角显示一个 三角形 ，
+         * 不同的颜色代表加载的来源
+         * 红色：代表从网络下载的图片
+         * 蓝色：代表从磁盘缓存加载的图片
+         * 绿色：代表从内存中加载的图片
+         * 如果项目中使用了OkHttp库的话，
+         * 默认会使用OkHttp来下载图片。
+         * 否则使用HttpUrlConnection来下载图片。
          */
         picasso.setIndicatorsEnabled(false);
+    }
+
+    public void putStringToDisker(String content, String url) {
+        if (TextUtils.isEmpty(content) || TextUtils.isEmpty(url)) {
+            return;
+        }
+        int startIndex = url.indexOf("srv");
+        if (startIndex == -1) {
+            return;
+        }
+        String key = Md5.digest32(url.substring(startIndex));
+        LogUtil.i("Data", "put key : " + key + "startIndex : " + startIndex);
+
+        disker.putStringToDisker(content, key);
     }
 
     public String getCacheFromDisker(String url) {
@@ -96,6 +116,10 @@ public class DataProvider {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void clearAllCache() {
+        disker.deleteCache();
     }
 
     public ImageLoader getImageLoader() {

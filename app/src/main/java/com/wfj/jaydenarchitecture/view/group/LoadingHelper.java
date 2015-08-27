@@ -32,7 +32,7 @@ public class LoadingHelper {
         loadingImageView.setImageDrawable(loadingDrawable);
     }
 
-    public static LoadingHelper geenrateOnParentAtPosition(ViewGroup parent, int position) {
+    public static LoadingHelper generateOnParentAtPosition(ViewGroup parent, int position) {
         if (parent == null) {
             return null;
         }

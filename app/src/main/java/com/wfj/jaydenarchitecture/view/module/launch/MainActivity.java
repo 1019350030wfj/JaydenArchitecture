@@ -1,9 +1,11 @@
-package com.wfj.jaydenarchitecture;
+package com.wfj.jaydenarchitecture.view.module.launch;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.wfj.jaydenarchitecture.R;
 
 public class MainActivity extends AppCompatActivity {
 

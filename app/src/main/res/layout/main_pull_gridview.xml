@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c3_white"
+    android:orientation="vertical" >
+
+    <com.feibo.art.widget.pullToRefresh.PullToRefreshGridView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@null"
+        android:dividerHeight="0px"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:horizontalSpacing="6dp"
+        android:listSelector="@android:color/transparent"
+        android:numColumns="2"
+        android:scrollbars="none"
+        android:verticalSpacing="6dp" />
+
+</LinearLayout>

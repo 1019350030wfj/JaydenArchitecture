@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/load_more_frame"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:minWidth="400dp"
+    android:layout_height="@dimen/d_recycler_prompt_large_height"
+    android:gravity="center"
+    android:orientation="vertical">
+    <!-- DRecyclerView 的加载更多的FootView的根布局-->
+    <ImageView
+        android:id="@+id/footer_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher"/>
+
+    <ProgressBar
+        android:id="@+id/footer_progressbar"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+    <ImageView
+        android:id="@+id/iv_progress"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:id="@+id/footer_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/footer_text_loadmore"
+        android:textColor="@android:color/secondary_text_dark"
+        android:textSize="16dp"
+        android:visibility="visible"/>
+</LinearLayout>

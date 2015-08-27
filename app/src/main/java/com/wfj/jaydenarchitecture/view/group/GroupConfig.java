@@ -1,5 +1,6 @@
 package com.wfj.jaydenarchitecture.view.group;
 
+import android.text.TextUtils;
 import android.util.SparseArray;
 
 import com.wfj.jaydenarchitecture.R;
@@ -61,9 +62,41 @@ public class GroupConfig {
         return "";
     }
 
-    private void addFailCodeToSA(int failCode, String failMsg) {
+    private GroupConfig addFailCodeToSA(int failCode, String failMsg) {
+        if (!allCodeList.contains(failCode)) {
+            allCodeList.add(failCode);
+        }
+        if (sparseArray == null) {
+            sparseArray = new SparseArray<String>();
+        }
         if (Strings.isEmpty(sparseArray.get(failCode))) {
             sparseArray.append(failCode,failMsg);
+        }
+
+        return this;
+    }
+
+    /**
+     * 加载列表的数据的时候，
+     * 判断是否针对错误码显示错误的Loading页(凡是本配置类有定义的FailCode都需要显示错误的Loading页)
+     *
+     * @param code
+     * @return
+     */
+    public static boolean shouldShowFailLoadingPage(int code) {
+        return allCodeList.contains(code);
+    }
+
+    /**
+     * 由返回码得到Loading上显示的Message
+     * @param code
+     * @return
+     */
+    public String getMessage(int code) {
+        if(!TextUtils.isEmpty(sparseArray.get(code))) {
+            return sparseArray.get(code);
+        } else {
+            return "错误码:" + code;
         }
     }
 }

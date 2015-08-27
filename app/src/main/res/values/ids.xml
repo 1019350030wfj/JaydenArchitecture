@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item type="id" name="head_left_part" />
+    <item type="id" name="head_right_part" />
+    <item type="id" name="head_title_part" />
+    <item type="id" name="head_layout" />
+
+    <item type="id" name="head_left_img" />
+    <item type="id" name="head_left_tx" />
+    <item type="id" name="head_right_img" />
+    <item type="id" name="head_right_tx" />
+    <item type="id" name="head_title_tx"/>
+
+
+    <item type="id" name="gridview" />
+
+</resources>

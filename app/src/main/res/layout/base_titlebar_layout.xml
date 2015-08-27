@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/head_layout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/titlebar_height"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:id="@id/head_left_part"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/titlebar_height"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:paddingLeft="@dimen/titlebar_padding_left"
+        android:paddingRight="@dimen/titlebar_padding_left">
+
+        <ImageView
+            android:id="@id/head_left_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/btn_back"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@id/head_left_tx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="返回"
+            android:textColor="@color/c3_white"
+            android:textSize="@dimen/s26"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@id/head_title_part"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/titlebar_height"
+        android:layout_centerInParent="true"
+        android:gravity="center">
+
+        <TextView
+            android:id="@id/head_title_tx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/btn_back"
+            android:textColor="@color/c3_white"
+            android:textSize="@dimen/s26" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@id/head_right_part"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/titlebar_height"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:paddingLeft="@dimen/titlebar_padding_left"
+        android:paddingRight="@dimen/titlebar_padding_left">
+
+        <ImageView
+            android:id="@id/head_right_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/btn_back"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@id/head_right_tx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="编辑"
+            android:textColor="@color/c3_white"
+            android:textSize="@dimen/s26"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+</RelativeLayout>
